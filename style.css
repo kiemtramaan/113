@@ -1,8 +1,4 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+
 body {
   font-family: 'Share Tech Mono', monospace;
   background: black;
@@ -20,7 +16,7 @@ body {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  opacity: 0.1;
+  opacity: 0.05;
   z-index: -2;
 }
 canvas#matrix {
