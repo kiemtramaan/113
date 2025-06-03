@@ -5,7 +5,7 @@
   padding: 0;
 }
 
-/* Thân trang */
+/* Body nền đen để làm nổi bật chữ xanh lá và ảnh mờ */
 body {
   font-family: 'Share Tech Mono', monospace;
   background: black;
@@ -14,7 +14,7 @@ body {
   overflow: hidden;
 }
 
-/* Hai hình nền cố định */
+/* Ảnh nền, phủ toàn màn hình, opacity thấp */
 .background-image {
   position: fixed;
   top: 0;
@@ -22,21 +22,21 @@ body {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  opacity: 0.05;
-  z-index: -3;
+  opacity: 0.05;       /* Điều chỉnh độ mờ của ảnh nền */
+  z-index: 0;          /* Nằm trên nền body, nhưng dưới canvas */
 }
 
-/* Canvas hiệu ứng Matrix nằm trên ảnh nền */
+/* Canvas Matrix phải nằm “lên trên” ảnh nền */
 canvas#matrix {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: 1;          /* Lớp giữa: trên ảnh nền, dưới form */
 }
 
-/* Khung nhập liệu đặt giữa màn hình */
+/* Hộp nhập liệu (glow-box) ở chính giữa */
 .glow-box {
   position: absolute;
   top: 50%;
@@ -48,7 +48,7 @@ canvas#matrix {
   box-shadow: 0 0 10px #0f0;
   text-align: center;
   color: #0f0;
-  z-index: 1;
+  z-index: 2;          /* Ở trên cùng, không bị che */
 }
 
 .glow-box h2 {
@@ -94,6 +94,5 @@ canvas#matrix {
 #message {
   margin-top: 15px;
   font-size: 14px;
-  min-height: 18px; /* Giữ chiều cao ổn định ngay cả khi chưa có text */
+  min-height: 18px;  /* Giữ chỗ cho thông báo, dù chưa có nội dung */
 }
-
