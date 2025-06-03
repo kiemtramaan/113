@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: black;
+  color: #00ff99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+#background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.1;
+  z-index: -2;
+}
+canvas#matrix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+.glow-box {
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #00ff99;
+  border-radius: 15px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 20px #00ff99, inset 0 0 10px #00ff99;
+  text-align: center;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 15px #00ff99, inset 0 0 5px #00ff99; }
+  50% { box-shadow: 0 0 30px #00ffcc, inset 0 0 15px #00ffcc; }
+  100% { box-shadow: 0 0 15px #00ff99, inset 0 0 5px #00ff99; }
+}
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #00ff99;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: transparent;
+  border: 2px solid #00ff99;
+  border-radius: 8px;
+  color: #00ff99;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 0 5px #00ff99 inset;
+}
+input::placeholder {
+  color: #00ff99;
+  opacity: 0.5;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #00ff99;
+  background: transparent;
+  color: #00ff99;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px #00ff99, inset 0 0 10px #00ff99;
+}
+button:hover {
+  background: #00ff99;
+  color: black;
+  box-shadow: 0 0 20px #00ffcc, inset 0 0 20px #00ffcc;
+}
+#message {
+  margin-top: 15px;
+  color: #ff6666;
+  text-shadow: 0 0 5px #ff6666;
+  white-space: pre-line;
+}
