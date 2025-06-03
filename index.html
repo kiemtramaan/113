@@ -8,23 +8,30 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Hai hình nền (nếu cần) -->
-  <img class="background-image" src="https://images.unsplash.com/photo-1548095115-45697e3ee6a3?auto=format&fit=crop&w=1400&q=80" alt="Hacker Background">
-  <img class="background-image" src="https://images.unsplash.com/photo-1548095115-45697e3ee6a3?auto=format&fit=crop&w=1400&q=80" alt="Background">
-
+  <!-- Hai ảnh nền (nếu vẫn muốn dùng 2 ảnh), dùng cùng class để không trùng id -->
+  <img class="background-image" 
+       src="https://images.unsplash.com/photo-1548095115-45697e3ee6a3?auto=format&fit=crop&w=1400&q=80" 
+       alt="Hacker Background">
+  <img class="background-image" 
+       src="https://images.unsplash.com/photo-1548095115-45697e3ee6a3?auto=format&fit=crop&w=1400&q=80" 
+       alt="Background">
+  
   <!-- Canvas cho hiệu ứng Matrix Rain -->
   <canvas id="matrix"></canvas>
 
+  <!-- Hộp nhập liệu chính giữa màn hình -->
   <div class="glow-box">
     <h2>KIỂM TRA MÃ ẨN</h2>
-    <input type="text" id="phone" name="phone" placeholder="Số điện thoại _">
-    <input type="text" id="idname" name="idname" placeholder="ID tài khoản _">
-    <input type="text" id="gamename" name="gamename" placeholder="Cổng game _">
+    <input type="text" id="phone"     name="phone"     placeholder="Số điện thoại _">
+    <input type="text" id="idname"    name="idname"    placeholder="ID tài khoản _">
+    <input type="text" id="gamename"  name="gamename"  placeholder="Cổng game _">
     <button type="button" onclick="submitForm()">BẮT ĐẦU</button>
     <div id="message"></div>
   </div>
 
-  <audio id="successSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+  <audio id="successSound" 
+         src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg">
+  </audio>
   <script src="script.js"></script>
 </body>
 </html>
