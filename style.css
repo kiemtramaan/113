@@ -95,5 +95,5 @@ function submitForm() {
   successSound.play();
   const randomCode = generateRandomCode(10);
   messageDiv.style.color = "#66ff66";
-  messageDiv.textContent = `TÀI KHOẢN CHỨA MÃ ẨN, Mã ẩn đó là ${randomCode}`;
+  messageDiv.textContent = `TÀI KHOẢN CHỨA MÃ ẨN ${randomCode}`;
 }
