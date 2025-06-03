@@ -1,4 +1,4 @@
-// Lấy canvas và thiết lập kích thước
+// Lấy canvas và thiết lập kích thước ban đầu
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 let W = window.innerWidth;
@@ -13,9 +13,9 @@ const fontSize = 14;
 let columns = Math.floor(W / fontSize);
 let drops = new Array(columns).fill(1);
 
-// Hàm vẽ một khung Frame cho hiệu ứng Matrix
+// Hàm vẽ hiệu ứng “Matrix Rain”
 function drawMatrix() {
-  // Tô nền đen bán trong suốt để tạo vệt mờ
+  // Tô một lớp đen bán trong suốt lên toàn canvas để tạo “vệt mờ”
   ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, W, H);
 
@@ -23,12 +23,16 @@ function drawMatrix() {
   ctx.font = fontSize + "px 'Share Tech Mono'";
 
   for (let i = 0; i < drops.length; i++) {
+    // Chọn một ký tự ngẫu nhiên
     const text = letters.charAt(Math.floor(Math.random() * letters.length));
+    // Vẽ ký tự tại (x = i * fontSize, y = drops[i] * fontSize)
     ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
+    // Khi ký tự vượt đáy và ngẫu nhiên > 0.975 thì reset về đầu cột
     if (drops[i] * fontSize > H && Math.random() > 0.975) {
       drops[i] = 0;
     }
+    // Tăng “dòng” của cột đó
     drops[i]++;
   }
 }
@@ -36,7 +40,7 @@ function drawMatrix() {
 // Chạy animation: mỗi 30ms vẽ lại một frame
 setInterval(drawMatrix, 30);
 
-// Đảm bảo canvas co giãn khi resize cửa sổ
+// Khi đổi kích thước trình duyệt, cập nhật lại W, H, columns, drops
 window.addEventListener('resize', () => {
   W = window.innerWidth;
   H = window.innerHeight;
@@ -54,19 +58,19 @@ function submitForm() {
   const messageDiv = document.getElementById('message');
   const successSound = document.getElementById('successSound');
 
-  // Kiểm tra nếu có trường nào để trống
+  // Nếu bất kỳ trường nào trống, hiện thông báo màu đỏ
   if (!phone || !idname || !gamename) {
     messageDiv.textContent = "Vui lòng điền đầy đủ Số điện thoại, ID tài khoản và Cổng game.";
     messageDiv.style.color = "#ff6666";
     return;
   }
 
-  // Nếu đủ, phát âm thanh và hiển thị thông báo
+  // Nếu đủ dữ liệu, phát âm thanh và hiện thông báo màu xanh
   successSound.play();
   messageDiv.textContent = "Bắt đầu kiểm tra mã ẩn…";
   messageDiv.style.color = "#66ff66";
 
-  // Ví dụ: mô phỏng kết quả sau 1 giây
+  // Ví dụ: sau 1 giây, hiển thị kết quả “thành công”
   setTimeout(() => {
     messageDiv.textContent = "Kiểm tra hoàn tất! Mã hợp lệ.";
     messageDiv.style.color = "#66ff66";
