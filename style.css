@@ -7,7 +7,7 @@ canvas.width = W;
 canvas.height = H;
 
 // Chuỗi ký tự cho hiệu ứng “Matrix Rain”
-const letters = "アァイィウヴエカガキギクグケゲコゴサザシジスズセゼソゾタダチッヂヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const letters = "アァイィウヴエカガキギクグケゲコゴサザシジスズセゼソゾタダチッヂヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 const fontSize = 14;
 let columns = Math.floor(W / fontSize);
@@ -23,16 +23,12 @@ function drawMatrix() {
   ctx.font = fontSize + "px 'Share Tech Mono'";
 
   for (let i = 0; i < drops.length; i++) {
-    // Chọn một ký tự ngẫu nhiên
     const text = letters.charAt(Math.floor(Math.random() * letters.length));
-    // Vẽ ký tự tại (x = i * fontSize, y = drops[i] * fontSize)
     ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-    // Khi ký tự vượt đáy và ngẫu nhiên > 0.975 thì reset về đầu cột
     if (drops[i] * fontSize > H && Math.random() > 0.975) {
       drops[i] = 0;
     }
-    // Tăng “dòng” của cột đó
     drops[i]++;
   }
 }
@@ -50,6 +46,16 @@ window.addEventListener('resize', () => {
   drops = new Array(columns).fill(1);
 });
 
+// Hàm tạo chuỗi ngẫu nhiên độ dài 10 (chứa chữ hoa, chữ thường, số)
+function generateRandomCode(length = 10) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
 // Hàm xử lý khi nhấn nút “BẮT ĐẦU”
 function submitForm() {
   const phone = document.getElementById('phone').value.trim();
@@ -65,14 +71,29 @@ function submitForm() {
     return;
   }
 
-  // Nếu đủ dữ liệu, phát âm thanh và hiện thông báo màu xanh
-  successSound.play();
-  messageDiv.textContent = "Bắt đầu kiểm tra mã ẩn…";
-  messageDiv.style.color = "#66ff66";
-
-  // Ví dụ: sau 1 giây, hiển thị kết quả “thành công”
-  setTimeout(() => {
-    messageDiv.textContent = "Kiểm tra hoàn tất! Mã hợp lệ.";
+  // Nếu Cổng game là St666 hoặc Ae888
+  if (gamename === "St666" || gamename === "Ae888") {
+    // Hiển thị đếm ngược 5s trước khi hiện thông báo
+    let countdown = 5;
     messageDiv.style.color = "#66ff66";
-  }, 1000);
+    messageDiv.textContent = `Vui lòng chờ ${countdown} giây ...`;
+    const intervalID = setInterval(() => {
+      countdown--;
+      if (countdown > 0) {
+        messageDiv.textContent = `Vui lòng chờ ${countdown} giây ...`;
+      } else {
+        clearInterval(intervalID);
+        messageDiv.textContent = "TÀI KHOẢN KHÔNG CÓ MÃ ẨN";
+        messageDiv.style.color = "#66ff66";
+      }
+    }, 1000);
+    return;
+  }
+
+  // Trường hợp khác (không phải St666 hoặc Ae888)
+  // Phát âm thanh và tạo mã ẩn ngẫu nhiên
+  successSound.play();
+  const randomCode = generateRandomCode(10);
+  messageDiv.style.color = "#66ff66";
+  messageDiv.textContent = `TÀI KHOẢN CHỨA MÃ ẨN, Mã ẩn đó là ${randomCode}`;
 }
