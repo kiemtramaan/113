@@ -5,7 +5,7 @@
   padding: 0;
 }
 
-/* Body nền đen để làm nổi bật chữ xanh lá và ảnh mờ */
+/* Body nền đen để làm nổi bật hiệu ứng Matrix và form */
 body {
   font-family: 'Share Tech Mono', monospace;
   background: black;
@@ -14,26 +14,14 @@ body {
   overflow: hidden;
 }
 
-/* Ảnh nền, phủ toàn màn hình, opacity thấp */
-.background-image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  opacity: 0.05;       /* Điều chỉnh độ mờ của ảnh nền */
-  z-index: 0;          /* Nằm trên nền body, nhưng dưới canvas */
-}
-
-/* Canvas Matrix phải nằm “lên trên” ảnh nền */
+/* Canvas Matrix phủ toàn màn hình */
 canvas#matrix {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1;          /* Lớp giữa: trên ảnh nền, dưới form */
+  z-index: 1;
 }
 
 /* Hộp nhập liệu (glow-box) ở chính giữa */
@@ -48,7 +36,7 @@ canvas#matrix {
   box-shadow: 0 0 10px #0f0;
   text-align: center;
   color: #0f0;
-  z-index: 2;          /* Ở trên cùng, không bị che */
+  z-index: 2;  /* Luôn hiển thị trên cùng */
 }
 
 .glow-box h2 {
@@ -94,5 +82,6 @@ canvas#matrix {
 #message {
   margin-top: 15px;
   font-size: 14px;
-  min-height: 18px;  /* Giữ chỗ cho thông báo, dù chưa có nội dung */
+  min-height: 18px;  /* Đảm bảo khu vực hiển thị thông báo luôn có chỗ */
+  color: #66ff66;     /* Mặc định giữ màu xanh cho các thông báo thành công */
 }
