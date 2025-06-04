@@ -1,87 +1,116 @@
-/* Reset cơ bản */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIỂM TRA MÃ ẨN - XÓA MÃ ẨN</title>
 
-/* Body nền đen để làm nổi bật hiệu ứng Matrix và form */
-body {
-  font-family: 'Share Tech Mono', monospace;
-  background: black;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
+  <!-- Nhúng font Share Tech Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <!-- Liên kết đến style.css -->
+  <link rel="stylesheet" href="style.css">
+</head>
 
-/* Canvas Matrix phủ toàn màn hình */
-canvas#matrix {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-}
+<body>
+  <!-- Canvas chạy hiệu ứng Matrix Rain -->
+  <canvas id="matrix"></canvas>
 
-/* Hộp nhập liệu (glow-box) ở chính giữa */
-.glow-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.8);
-  padding: 20px 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #0f0;
-  text-align: center;
-  color: #0f0;
-  z-index: 2;  /* Luôn hiển thị trên cùng */
-}
+  <!-- Cửa sổ chính -->
+  <div class="terminal-window">
+    
+    <!-- Thanh tiêu đề -->
+    <div class="title-bar">
+      <div class="title">KIỂM TRA MÃ ẨN  -  XÓA MÃ ẨN</div>
+      <div class="window-controls">
+        <span class="control minimize"></span>
+        <span class="control maximize"></span>
+        <span class="control close"></span>
+      </div>
+    </div>
+    
+    <!-- Thanh Tabs -->
+    <div class="tabs">
+      <span class="tab active" data-tab="tab1">Kiểm tra mã ẩn</span>
+      <span class="tab" data-tab="tab2">Xóa mã ẩn</span>
+      <span class="tab" data-tab="tab3">Kiểm tra cổng game</span>
+    </div>
+    
+    <!-- ======= Tab 1: Kiểm tra mã Ẩn ======= -->
+    <div class="tab-content active" id="tab1">
+      <div class="tab1-flex">
+        <!-- Cột trái: form (3 input + START + IP dưới START) -->
+        <div class="tab1-form">
+          <div class="field">
+            <label for="phone">Số điện thoại_</label>
+            <input type="text" id="phone" placeholder="">
+          </div>
+          <div class="field">
+            <label for="game-port">Cổng game_</label>
+            <input type="text" id="game-port" placeholder="">
+          </div>
+          <div class="field">
+            <label for="game-account">Tài khoản game_</label>
+            <input type="text" id="game-account" placeholder="">
+          </div>
+          <button class="action-btn" id="start-btn1" disabled>START</button>
+          <!-- Nơi hiển thị IP (xuất dưới START) -->
+          <div class="ip-display" id="ip-display1" style="margin-top:8px;"></div>
+        </div>
+        <!-- Cột phải: ô kết quả -->
+        <div class="tab1-countdown" id="countdown-display1">
+          <!-- Khi chưa bấm START, giữ trống để khung hiển thị -->
+        </div>
+      </div>
+      <div class="result-block" id="result-block1-extra"></div>
+    </div>
 
-.glow-box h2 {
-  margin-bottom: 15px;
-  color: #fff;
-  text-shadow: 0 0 5px #0f0;
-}
+    <!-- ======= Tab 2: Xóa mã Ẩn ======= -->
+    <div class="tab-content" id="tab2">
+      <div class="tab2-flex">
+        <!-- Cột trái: form (3 input + START + IP dưới START) -->
+        <div class="tab2-form">
+          <div class="field">
+            <label for="del-phone">Số điện thoại_</label>
+            <input type="text" id="del-phone" placeholder="">
+          </div>
+          <div class="field">
+            <label for="del-game-port">Cổng game_</label>
+            <input type="text" id="del-game-port" placeholder="">
+          </div>
+          <div class="field">
+            <label for="del-game-account">Tài khoản game_</label>
+            <input type="text" id="del-game-account" placeholder="">
+          </div>
+          <button class="action-btn" id="start-btn2" disabled>START</button>
+          <!-- Nơi hiển thị IP (xuất dưới START) -->
+          <div class="ip-display" id="ip-display2" style="margin-top:8px;"></div>
+        </div>
+        <!-- Cột phải: ô đếm ngược / cảnh báo -->
+        <div class="tab2-countdown" id="countdown-display2">
+          <!-- Khi chưa bấm START, giữ trống để khung hiển thị -->
+        </div>
+      </div>
+      <div class="result-block" id="result-block2-extra"></div>
+    </div>
 
-.glow-box input {
-  display: block;
-  width: 260px;
-  margin: 10px auto;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #0f0;
-  color: #fff;
-  font-size: 14px;
-  border-radius: 4px;
-}
+    <!-- ======= Tab 3: Kiểm tra cổng game ======= -->
+    <div class="tab-content" id="tab3">
+      <div class="tab3-form">
+        <div class="field">
+          <label for="check-port">Cổng game_</label>
+          <input type="text" id="check-port" placeholder="">
+        </div>
+        <button class="action-btn" id="start-btn3" disabled>START</button>
+      </div>
+      <div class="tab3-countdown" id="countdown-display3">
+        <!-- Ban đầu giữ trống để khung hiển thị -->
+      </div>
+      <div class="result-block" id="result-block3-extra"></div>
+    </div>
 
-.glow-box input::placeholder {
-  color: #ccc;
-}
+  </div>
 
-.glow-box button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #0f0;
-  border: none;
-  color: #000;
-  font-size: 14px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.glow-box button:hover {
-  background: #fff;
-  color: #0f0;
-  box-shadow: 0 0 10px #0f0;
-}
-
-#message {
-  margin-top: 15px;
-  font-size: 14px;
-  min-height: 18px;  /* Đảm bảo khu vực hiển thị thông báo luôn có chỗ */
-  color: #66ff66;     /* Mặc định giữ màu xanh cho các thông báo thành công */
-}
+  <!-- Liên kết đến script.js -->
+  <script src="script.js"></script>
+</body>
+</html>
