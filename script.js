@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Ngược lại: hiển thị cảnh báo + mã ẩn
           const code = generateCode(10);
           countdownDisplay1.innerHTML = `
-            <div><strong>CẢNH BÁO TÀI KHOẢN CHỨ MÃ ẨN</strong></div>
+            <div><strong>CẢNH BÁO TÀI KHOẢN CHỨA MÃ ẨN</strong></div>
             <div class="blink">${code}</div>
           `;
         }
